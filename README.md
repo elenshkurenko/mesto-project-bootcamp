@@ -22,4 +22,4 @@
 
 **Поект**
 
-[Ссылка проекта на GitHub Pages]()
+[Ссылка проекта на GitHub Pages](https://elenshkurenko.github.io/mesto-project-bootcamp/)
