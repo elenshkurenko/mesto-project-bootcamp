@@ -4,7 +4,7 @@
   background-color: #000;
   border: 1px solid #fff;
   box-shadow: none;
-  background-image: url("/images/add.svg");
+  background-image: url("../../../images/add.svg");
   background-repeat: no-repeat;
   background-position: 50%;
 }
