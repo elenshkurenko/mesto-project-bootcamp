@@ -1,0 +1,10 @@
+.profile__wrap{
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  margin: 0 0 16px 0;
+}
+
+.profile__wrap{
+  margin-bottom: 14px;
+}
