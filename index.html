@@ -13,73 +13,76 @@
   </header>
   <main class="container">
     <section class="profile">
-      <div class="profile__avatar"></div>
+      <img  class="profile__avatar" src="./images/avatar.jpg" alt="Аватар пользователя">
       <div class="profile__info">
         <div class="profile__wrap">
           <h1 class="profile__username">Жак-Ив Кусто</h1>
-          <div class="profile__edit"></div>
+          <button class="profile__edit" type="button"  aria-label="Редактировать"></button>
         </div>
         <p class="profile__about-user">Исследователь океана</p>
       </div>
-      <button class="profile__button"></button>
+      <button class="profile__button" type="button" aria-label="Добавить"></button>
     </section>
-    <article class="gallery">
-      <div class="gallery__item">
+    <section class="gallery">
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Карачаевск.jpg" alt="замок в грах">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Карачаевск</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-      <div class="gallery__item">
+      </article>
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Эльбрус.jpg" alt="закат в горах">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Гора Эльбрус</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-      <div class="gallery__item">
+      </article>
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Домбай.jpg" alt="горы">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Домбай</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-      <div class="gallery__item">
+      </article>
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Карачаевск.jpg" alt="замок в грах">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Карачаевск</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-      <div class="gallery__item">
+      </article>
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Эльбрус.jpg" alt="закат в горах">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Гора Эльбрус</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-      <div class="gallery__item">
+      </article>
+      <article class="gallery__item">
         <img class="gallery__image" src="./images/Домбай.jpg" alt="горы">
         <div class="gallery__wrap">
           <h2 class="gallery__title">Домбай</h2>
-          <button class="gallery__button"></button>
+          <button class="gallery__button" type="button" aria-label="Нравится"></button>
         </div>
-      </div>
-    </article>
-
-    <div class="popup">
-      <div class="popup__container">
-        <button class="popup__close"></button>
-        <h2 class="popup__title">Редактировать профиль</h2>
-        <input class="popup__username" type="text" value="Жак-Ив Кусто">
-        <input class="popup__about-user" type="text" value="Исследователь океана">
-        <button class="popup__save">Сохранить</button>
-      </div>
-    </div>
+      </article>
+    </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2020 Mesto Russia</p>
   </footer>
+
+  <div class="popup popup_opened">
+    <div class="popup__container">
+      <button class="popup__close" type="button" aria-label="Закрыть"></button>
+      <h2 class="popup__title">Редактировать профиль</h2>
+      <form action="" class="popup__form" name="profile-form">
+        <input class="popup__input popup__input_type_username" type="text" name="username" placeholder="Введите имя" value="Жак-Ив Кусто">
+        <input class="popup__input popup__input_type_about-user" type="text" name="about-user" placeholder="Расскажите о себе" value="Исследователь океана">
+        <button class="popup__save" type="submit">Сохранить</button>
+      </form>
+      
+    </div>
+  </div>
 </body>
 </html>
