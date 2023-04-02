@@ -1,4 +1,4 @@
-.gallery__button{
+.gallery__like-button{
   background-image: url("../../../images/heart.svg");
   width: 22px;
   height: 19px;
@@ -7,11 +7,11 @@
   background-color: transparent;
 }
 
-.gallery__button:hover{
+.gallery__like-button:hover{
   opacity: 0.5;
   cursor: pointer;
 }
 
-.gallery__button:active{
+.gallery__like-button:active{
   background-image: url("../../../images/active-heart.svg");
 }
