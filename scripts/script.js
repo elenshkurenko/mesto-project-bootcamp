@@ -1,4 +1,4 @@
-const profile = document.querySelector('.profile')
+const profile = document.querySelector('.profile');
 const buttonEdit = profile.querySelector('.profile__edit');
 const buttonAdd = profile.querySelector('.profile__button');
 const popup = document.querySelector('.popup');
@@ -42,6 +42,9 @@ const initialCards = [
 ]; 
 const gallery = document.querySelector('.gallery');
 const templateCard = document.querySelector('#template-card').content;
+const popupOpenImage = document.querySelector('.popup__open-image');
+const imageFromPopup = popupOpenImage.querySelector('.popup__image');
+const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title'); 
 
 buttonEdit.addEventListener('click', () => {
   popupProfile.classList.add('popup_opened');
@@ -54,20 +57,20 @@ function closePopup(){
   buttons.forEach((item) => {
     item.closest('.popup').classList.remove('popup_opened');
   })
-}
+};
 
 profileButtonClose.addEventListener('click', () => {
   inputUsername.value = '';
   inputAboutUser.value = '';
   closePopup();
-})
+});
 
 function handleFormSubmit(evt){
   evt.preventDefault();
   popupProfile.classList.remove('popup_opened');
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
-}
+};
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
@@ -79,7 +82,8 @@ initialCards.forEach((item) => {
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
   addEventLike(card);
-  deleteCard(card)
+  deleteCard(card);
+  handleImage(card);
 
   gallery.append(card);
 });
@@ -98,18 +102,35 @@ function addCardFormSubmit(evt){
   card.querySelector('.gallery__image').src = inputPlacelink.value;
   addEventLike(card);
   deleteCard(card);
+  handleImage(card);
 
   gallery.prepend(card);
-}
+};
 
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
 
 function addEventLike(card){
   const likeButton = card.querySelector('.gallery__like-button');
   likeButton.addEventListener('click', () => likeButton.classList.toggle('gallery__like-button_active'));
-}
+};
 
 function deleteCard(card){
   const deleteButton = card.querySelector('.gallery__delete-button');
   deleteButton.addEventListener('click', () => card.remove());
-}
+};
+
+function handleImage(card){
+  const image = card.querySelector('.gallery__image');
+  const titleImage = card.querySelector('.gallery__title');
+  const buttonClose = popupOpenImage.querySelector('.popup__close');
+
+  image.addEventListener('click', () => {
+    popupOpenImage.classList.add('popup_opened');
+    imageFromPopup.src = image.src;
+    imageFromPopup.alt = titleImage.textContent;
+    imageTitleFromPopup.textContent = titleImage.textContent;
+  })
+  
+  buttonClose.addEventListener('click', () => closePopup())
+};
+
