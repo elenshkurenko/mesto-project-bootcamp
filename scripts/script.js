@@ -78,8 +78,9 @@ initialCards.forEach((item) => {
   cardImage.src= item.link;
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
-
   addEventLike(card);
+  deleteCard(card)
+
   gallery.append(card);
 });
 
@@ -95,7 +96,8 @@ function addCardFormSubmit(evt){
   popupNewPlace.classList.remove('popup_opened');
   card.querySelector('.gallery__title').textContent = inputPlacename.value;
   card.querySelector('.gallery__image').src = inputPlacelink.value;
-  addEventLike(card)
+  addEventLike(card);
+  deleteCard(card);
 
   gallery.prepend(card);
 }
@@ -105,4 +107,9 @@ newPlaceForm.addEventListener('submit', addCardFormSubmit);
 function addEventLike(card){
   const likeButton = card.querySelector('.gallery__like-button');
   likeButton.addEventListener('click', () => likeButton.classList.toggle('gallery__like-button_active'));
+}
+
+function deleteCard(card){
+  const deleteButton = card.querySelector('.gallery__delete-button');
+  deleteButton.addEventListener('click', () => card.remove());
 }
