@@ -6,11 +6,16 @@ const popupProfile = document.querySelector('.popup_profile');
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputUsername = popupProfile.querySelector('.popup__input_type_username');
 const inputAboutUser = popupProfile.querySelector('.popup__input_type_about-user');
+const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
+const inputPlacelink = popupNewPlace.querySelector('.popup__input_type_placelink');
 const username = profile.querySelector('.profile__username');
 const aboutUser = profile.querySelector('.profile__about-user');
 const profileButtonClose = popupProfile.querySelector('.popup__close');
 const newPlaceButtonClose = popupNewPlace.querySelector('.popup__close');
-const buttonSave = popupProfile.querySelector('.popup__save');
+// const profileButtonSave = popupProfile.querySelector('.popup__save');
+// const newPlaceButtonSave = popupNewPlace.querySelector('.popup__save');
+const profileForm = popupProfile.querySelector('.popup__form');
+const newPlaceForm = popupNewPlace.querySelector('.popup__form');
 
 const initialCards = [
   {
@@ -61,15 +66,15 @@ profileButtonClose.addEventListener('click', () => {
   closePopup();
 })
 
+
 function handleFormSubmit(evt){
   evt.preventDefault();
   popupProfile.classList.remove('popup_opened');
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
-
 }
 
-buttonSave.addEventListener('click', handleFormSubmit);
+profileForm.addEventListener('submit', handleFormSubmit);
 
 initialCards.forEach((item) => {
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
@@ -86,4 +91,17 @@ buttonAdd.addEventListener('click', () => {
   popupNewPlace.classList.add('popup_opened');
 });
 
+
 newPlaceButtonClose.addEventListener('click', () => closePopup());
+
+function addCardFormSubmit(evt){
+  evt.preventDefault();
+  const card = templateCard.querySelector('.gallery__item').cloneNode(true);
+  popupNewPlace.classList.remove('popup_opened');
+  card.querySelector('.gallery__title').textContent = inputPlacename.value;
+  card.querySelector('.gallery__image').src = inputPlacelink.value;
+
+  gallery.prepend(card);
+}
+
+newPlaceForm.addEventListener('submit', addCardFormSubmit);
