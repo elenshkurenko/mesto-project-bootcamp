@@ -12,11 +12,8 @@ const username = profile.querySelector('.profile__username');
 const aboutUser = profile.querySelector('.profile__about-user');
 const profileButtonClose = popupProfile.querySelector('.popup__close');
 const newPlaceButtonClose = popupNewPlace.querySelector('.popup__close');
-// const profileButtonSave = popupProfile.querySelector('.popup__save');
-// const newPlaceButtonSave = popupNewPlace.querySelector('.popup__save');
 const profileForm = popupProfile.querySelector('.popup__form');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-
 const initialCards = [
   {
     name: 'Архыз',
@@ -46,7 +43,6 @@ const initialCards = [
 const gallery = document.querySelector('.gallery');
 const templateCard = document.querySelector('#template-card').content;
 
-
 buttonEdit.addEventListener('click', () => {
   popupProfile.classList.add('popup_opened');
   inputUsername.value = username.textContent;
@@ -66,7 +62,6 @@ profileButtonClose.addEventListener('click', () => {
   closePopup();
 })
 
-
 function handleFormSubmit(evt){
   evt.preventDefault();
   popupProfile.classList.remove('popup_opened');
@@ -84,13 +79,13 @@ initialCards.forEach((item) => {
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
 
+  addEventLike(card);
   gallery.append(card);
 });
 
 buttonAdd.addEventListener('click', () => {
   popupNewPlace.classList.add('popup_opened');
 });
-
 
 newPlaceButtonClose.addEventListener('click', () => closePopup());
 
@@ -100,8 +95,14 @@ function addCardFormSubmit(evt){
   popupNewPlace.classList.remove('popup_opened');
   card.querySelector('.gallery__title').textContent = inputPlacename.value;
   card.querySelector('.gallery__image').src = inputPlacelink.value;
+  addEventLike(card)
 
   gallery.prepend(card);
 }
 
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
+
+function addEventLike(card){
+  const likeButton = card.querySelector('.gallery__like-button');
+  likeButton.addEventListener('click', () => likeButton.classList.toggle('gallery__like-button_active'));
+}
