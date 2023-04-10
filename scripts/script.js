@@ -57,6 +57,14 @@ function cleanInput(popup){
   popup.querySelector('.popup__form').reset();
 }
 
+function closePopupEsc(popup){
+  document.addEventListener('keydown', (evt) => {
+    if(evt.key === 'Escape')[
+      closePopup(popup)
+    ]
+  }); 
+} 
+
 buttonEdit.addEventListener('click', () => {
   openPopup(popupProfile);
   inputUsername.value = username.textContent;
@@ -66,7 +74,10 @@ buttonEdit.addEventListener('click', () => {
 
 closeButtons.forEach((item) => {
   const popup = item.closest('.popup');
-  item.addEventListener('click', () => closePopup(popup));
+  closePopupEsc(popup);
+  item.addEventListener('click', () => {
+    closePopup(popup);
+  });
 })
 
 profileButtonClose.addEventListener('click', () => {
@@ -214,3 +225,4 @@ function enableValidation(){
 }
 
 enableValidation();
+
