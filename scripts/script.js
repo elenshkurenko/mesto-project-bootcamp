@@ -53,6 +53,9 @@ function closePopup(popup){
 function openPopup(popup){
   popup.classList.add('popup_opened');
 }
+function cleanInput(popup){
+  popup.querySelector('.popup__form').reset();
+}
 
 buttonEdit.addEventListener('click', () => {
   openPopup(popupProfile);
@@ -67,11 +70,9 @@ closeButtons.forEach((item) => {
   })
 
 
-// profileButtonClose.addEventListener('click', () => {
-//   inputUsername.value = '';
-//   inputAboutUser.value = '';
-//   closePopup();
-// });
+profileButtonClose.addEventListener('click', () => {
+  cleanInput(popupProfile);
+});
 
 function handleFormSubmit(evt){
   evt.preventDefault();
@@ -79,8 +80,6 @@ function handleFormSubmit(evt){
   aboutUser.textContent = inputAboutUser.value;
   closePopup(popupProfile);
 };
-
-
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
@@ -111,8 +110,8 @@ function addCardFormSubmit(evt){
   addEventLike(card);
   deleteCard(card);
   handleImage(card);
-
   gallery.prepend(card);
+  cleanInput(popupNewPlace);
 };
 
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
