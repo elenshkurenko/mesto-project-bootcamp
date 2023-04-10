@@ -14,7 +14,7 @@ const profileButtonClose = popupProfile.querySelector('.popup__close');
 const newPlaceButtonClose = popupNewPlace.querySelector('.popup__close');
 const profileForm = popupProfile.querySelector('.popup__form');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-const initialCards = [
+const cards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -44,38 +44,57 @@ const gallery = document.querySelector('.gallery');
 const templateCard = document.querySelector('#template-card').content;
 const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
-const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title'); 
+const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
+const closeButtons = document.querySelectorAll('.popup__close'); 
+
+function closePopup(popup){
+  popup.classList.remove('popup_opened');
+}
+function openPopup(popup){
+  popup.classList.add('popup_opened');
+}
+function cleanInput(popup){
+  popup.querySelector('.popup__form').reset();
+}
 
 buttonEdit.addEventListener('click', () => {
-  popupProfile.classList.add('popup_opened');
+  openPopup(popupProfile);
   inputUsername.value = username.textContent;
   inputAboutUser.value = aboutUser.textContent;
   toggleButtonState(popupProfile);
 });
 
-function closePopup(){
-  const buttons = document.querySelectorAll('.popup__close');
-  buttons.forEach((item) => {
-    item.closest('.popup').classList.remove('popup_opened');
+closeButtons.forEach((item) => {
+  const popup = item.closest('.popup');
+  item.addEventListener('click', () => closePopup(popup));
+   
   })
-};
+
 
 profileButtonClose.addEventListener('click', () => {
-  inputUsername.value = '';
-  inputAboutUser.value = '';
-  closePopup();
+  cleanInput(popupProfile);
 });
 
 function handleFormSubmit(evt){
   evt.preventDefault();
-  popupProfile.classList.remove('popup_opened');
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
+  closePopup(popupProfile);
 };
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
-initialCards.forEach((item) => {
+
+
+function addNewCard(){
+  cards.unshift({
+    name: inputPlacename.value,
+    link: inputPlacelink.value
+  })
+  initCards();
+}
+
+function createCard(item){
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
@@ -86,26 +105,29 @@ initialCards.forEach((item) => {
   deleteCard(card);
   handleImage(card);
 
-  gallery.append(card);
-});
+  return card;
+}
+
+function initCards(){
+  gallery.innerHTML = '';
+  cards.forEach((item) => {
+    gallery.append(createCard(item));
+  });
+  console.log(cards);
+}
+
+initCards();
 
 buttonAdd.addEventListener('click', () => {
-  popupNewPlace.classList.add('popup_opened');
+  openPopup(popupNewPlace);
 });
-
-newPlaceButtonClose.addEventListener('click', () => closePopup());
 
 function addCardFormSubmit(evt){
   evt.preventDefault();
-  const card = templateCard.querySelector('.gallery__item').cloneNode(true);
-  popupNewPlace.classList.remove('popup_opened');
-  card.querySelector('.gallery__title').textContent = inputPlacename.value;
-  card.querySelector('.gallery__image').src = inputPlacelink.value;
-  addEventLike(card);
-  deleteCard(card);
-  handleImage(card);
-
-  gallery.prepend(card);
+  
+  addNewCard();
+  closePopup(popupNewPlace);
+  cleanInput(popupNewPlace);
 };
 
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
@@ -123,16 +145,13 @@ function deleteCard(card){
 function handleImage(card){
   const image = card.querySelector('.gallery__image');
   const titleImage = card.querySelector('.gallery__title');
-  const buttonClose = popupOpenImage.querySelector('.popup__close');
 
   image.addEventListener('click', () => {
-    popupOpenImage.classList.add('popup_opened');
+    openPopup(popupOpenImage);
     imageFromPopup.src = image.src;
     imageFromPopup.alt = titleImage.textContent;
     imageTitleFromPopup.textContent = titleImage.textContent;
   })
-  
-  buttonClose.addEventListener('click', () => closePopup())
 };
 
 function addErrorInput(form, input, errorMessage){
