@@ -47,8 +47,15 @@ const imageFromPopup = popupOpenImage.querySelector('.popup__image');
 const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
 const closeButtons = document.querySelectorAll('.popup__close'); 
 
+function closePopup(popup){
+  popup.classList.remove('popup_opened');
+}
+function openPopup(popup){
+  popup.classList.add('popup_opened');
+}
+
 buttonEdit.addEventListener('click', () => {
-  popupProfile.classList.add('popup_opened');
+  openPopup(popupProfile);
   inputUsername.value = username.textContent;
   inputAboutUser.value = aboutUser.textContent;
 });
@@ -59,11 +66,6 @@ closeButtons.forEach((item) => {
    
   })
 
-function closePopup(popup){
-  popup.classList.remove('popup_opened');
-}
-
-
 
 // profileButtonClose.addEventListener('click', () => {
 //   inputUsername.value = '';
@@ -73,9 +75,9 @@ function closePopup(popup){
 
 function handleFormSubmit(evt){
   evt.preventDefault();
-  closePopup(popupProfile);
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
+  closePopup(popupProfile);
 };
 
 
@@ -97,13 +99,13 @@ initialCards.forEach((item) => {
 });
 
 buttonAdd.addEventListener('click', () => {
-  popupNewPlace.classList.add('popup_opened');
+  openPopup(popupNewPlace);
 });
 
 function addCardFormSubmit(evt){
   evt.preventDefault();
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
-  popupNewPlace.classList.remove('popup_opened');
+  closePopup(popupNewPlace);
   card.querySelector('.gallery__title').textContent = inputPlacename.value;
   card.querySelector('.gallery__image').src = inputPlacelink.value;
   addEventLike(card);
@@ -130,7 +132,7 @@ function handleImage(card){
   const titleImage = card.querySelector('.gallery__title');
 
   image.addEventListener('click', () => {
-    popupOpenImage.classList.add('popup_opened');
+    openPopup(popupOpenImage);
     imageFromPopup.src = image.src;
     imageFromPopup.alt = titleImage.textContent;
     imageTitleFromPopup.textContent = titleImage.textContent;
