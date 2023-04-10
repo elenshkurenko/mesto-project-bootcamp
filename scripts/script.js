@@ -44,7 +44,8 @@ const gallery = document.querySelector('.gallery');
 const templateCard = document.querySelector('#template-card').content;
 const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
-const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title'); 
+const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
+const closeButtons = document.querySelectorAll('.popup__close'); 
 
 buttonEdit.addEventListener('click', () => {
   popupProfile.classList.add('popup_opened');
@@ -52,25 +53,32 @@ buttonEdit.addEventListener('click', () => {
   inputAboutUser.value = aboutUser.textContent;
 });
 
-function closePopup(){
-  const buttons = document.querySelectorAll('.popup__close');
-  buttons.forEach((item) => {
-    item.closest('.popup').classList.remove('popup_opened');
+closeButtons.forEach((item) => {
+  const popup = item.closest('.popup');
+  item.addEventListener('click', () => closePopup(popup));
+   
   })
-};
 
-profileButtonClose.addEventListener('click', () => {
-  inputUsername.value = '';
-  inputAboutUser.value = '';
-  closePopup();
-});
+function closePopup(popup){
+  popup.classList.remove('popup_opened');
+}
+
+
+
+// profileButtonClose.addEventListener('click', () => {
+//   inputUsername.value = '';
+//   inputAboutUser.value = '';
+//   closePopup();
+// });
 
 function handleFormSubmit(evt){
   evt.preventDefault();
-  popupProfile.classList.remove('popup_opened');
+  closePopup(popupProfile);
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
 };
+
+
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
@@ -91,8 +99,6 @@ initialCards.forEach((item) => {
 buttonAdd.addEventListener('click', () => {
   popupNewPlace.classList.add('popup_opened');
 });
-
-newPlaceButtonClose.addEventListener('click', () => closePopup());
 
 function addCardFormSubmit(evt){
   evt.preventDefault();
@@ -122,7 +128,6 @@ function deleteCard(card){
 function handleImage(card){
   const image = card.querySelector('.gallery__image');
   const titleImage = card.querySelector('.gallery__title');
-  const buttonClose = popupOpenImage.querySelector('.popup__close');
 
   image.addEventListener('click', () => {
     popupOpenImage.classList.add('popup_opened');
@@ -130,7 +135,5 @@ function handleImage(card){
     imageFromPopup.alt = titleImage.textContent;
     imageTitleFromPopup.textContent = titleImage.textContent;
   })
-  
-  buttonClose.addEventListener('click', () => closePopup())
 };
 
