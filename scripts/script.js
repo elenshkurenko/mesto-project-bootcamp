@@ -14,7 +14,7 @@ const profileButtonClose = popupProfile.querySelector('.popup__close');
 const newPlaceButtonClose = popupNewPlace.querySelector('.popup__close');
 const profileForm = popupProfile.querySelector('.popup__form');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-const initialCards = [
+const cards = [
   {
     name: 'Архыз',
     link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
@@ -83,7 +83,17 @@ function handleFormSubmit(evt){
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
-initialCards.forEach((item) => {
+
+
+function addNewCard(){
+  cards.unshift({
+    name: inputPlacename.value,
+    link: inputPlacelink.value
+  })
+  initCards();
+}
+
+function createCard(item){
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
@@ -94,8 +104,18 @@ initialCards.forEach((item) => {
   deleteCard(card);
   handleImage(card);
 
-  gallery.append(card);
-});
+  return card;
+}
+
+function initCards(){
+  gallery.innerHTML = '';
+  cards.forEach((item) => {
+    gallery.append(createCard(item));
+  });
+  console.log(cards);
+}
+
+initCards();
 
 buttonAdd.addEventListener('click', () => {
   openPopup(popupNewPlace);
@@ -103,14 +123,9 @@ buttonAdd.addEventListener('click', () => {
 
 function addCardFormSubmit(evt){
   evt.preventDefault();
-  const card = templateCard.querySelector('.gallery__item').cloneNode(true);
+  
+  addNewCard();
   closePopup(popupNewPlace);
-  card.querySelector('.gallery__title').textContent = inputPlacename.value;
-  card.querySelector('.gallery__image').src = inputPlacelink.value;
-  addEventLike(card);
-  deleteCard(card);
-  handleImage(card);
-  gallery.prepend(card);
   cleanInput(popupNewPlace);
 };
 
