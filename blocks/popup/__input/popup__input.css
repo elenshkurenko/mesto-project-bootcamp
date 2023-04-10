@@ -6,9 +6,10 @@
   line-height: 17px;
   padding-bottom: 10px;
   overflow: auto;
+  margin-top: 28px;
 }
 
-.popup__input + .popup__input{
-  margin-top: 28px;
+.popup__input:first-child{
+  margin-top: 0;
 }
 
