@@ -1,7 +1,7 @@
 const profile = document.querySelector('.profile');
 const buttonEdit = profile.querySelector('.profile__edit');
 const buttonAdd = profile.querySelector('.profile__button');
-const popup = document.querySelector('.popup');
+const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputUsername = popupProfile.querySelector('.popup__input_type_username');
@@ -67,9 +67,7 @@ buttonEdit.addEventListener('click', () => {
 closeButtons.forEach((item) => {
   const popup = item.closest('.popup');
   item.addEventListener('click', () => closePopup(popup));
-   
-  })
-
+})
 
 profileButtonClose.addEventListener('click', () => {
   cleanInput(popupProfile);
@@ -84,7 +82,13 @@ function handleFormSubmit(evt){
 
 profileForm.addEventListener('submit', handleFormSubmit);
 
-
+popups.forEach((popup) => {
+  popup.addEventListener('click', (evt) => {
+    if(!evt.target.closest('.popup__wrap')){
+      closePopup(popup);
+    }
+  })
+})
 
 function addNewCard(){
   cards.unshift({
@@ -113,7 +117,6 @@ function initCards(){
   cards.forEach((item) => {
     gallery.append(createCard(item));
   });
-  console.log(cards);
 }
 
 initCards();
