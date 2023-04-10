@@ -50,7 +50,7 @@ buttonEdit.addEventListener('click', () => {
   popupProfile.classList.add('popup_opened');
   inputUsername.value = username.textContent;
   inputAboutUser.value = aboutUser.textContent;
-  setEventListeners(profileForm);
+  toggleButtonState(popupProfile);
 });
 
 function closePopup(){
@@ -158,15 +158,14 @@ function isValid(formElement, inputElement){
 }
 
 function setEventListeners(form){
-  const button = form.querySelector('.popup__save');
   const inputs = Array.from(form.querySelectorAll(".popup__input"));
+  toggleButtonState(form);
   inputs.forEach((input) => {
     input.addEventListener('input', () => {
       isValid(form, input);
-      toggleButtonState(inputs, button);
+      toggleButtonState(form);
     });
   })
-
 }
 
 function checkValidInput(inputs) {
@@ -175,7 +174,9 @@ function checkValidInput(inputs) {
   })
 }
 
-function toggleButtonState(inputs, button){
+function toggleButtonState(form){
+  const button = form.querySelector('.popup__save');
+  const inputs = Array.from(form.querySelectorAll(".popup__input"));
   if(checkValidInput(inputs)){
     button.classList.add('popup__save_inactive');
     button.setAttribute('disable', '');
@@ -185,4 +186,9 @@ function toggleButtonState(inputs, button){
   }
 }
 
+function enableValidation(){
+  const formList = Array.from(document.querySelectorAll('.popup__form'));
+  formList.forEach(form => setEventListeners(form));
+}
 
+enableValidation();

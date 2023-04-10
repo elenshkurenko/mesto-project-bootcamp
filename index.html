@@ -50,8 +50,12 @@
       <button class="popup__close" type="button" aria-label="Закрыть"></button>
       <h2 class="popup__title">Новое место</h2>
       <form action="" class="popup__form" name="add-card-form">
-        <input class="popup__input popup__input_type_placename" type="text" name="placename" placeholder="Название" value="">
-        <input class="popup__input popup__input_type_placelink" type="text" name="placelink" placeholder="Ссылка на картинку" value="">
+        <input class="popup__input popup__input_type_placename" id="placename" type="text" name="placename" placeholder="Название" value="" minlength="2" maxlength="30" required>
+        <span class="popup__input-error placename-error"></span>
+
+        <input class="popup__input popup__input_type_placelink" id="placelink" type="url" name="placelink" placeholder="Ссылка на картинку" value="" required>
+        <span class="popup__input-error placelink-error"></span>
+
         <button class="popup__save" type="submit">Сохранить</button>
       </form>
     </div>
