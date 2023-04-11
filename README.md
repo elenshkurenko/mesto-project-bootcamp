@@ -20,6 +20,7 @@
 * CSS
 * БЭМ
 * JS
+* NPM. Webpack
 
 **Поект**
 
