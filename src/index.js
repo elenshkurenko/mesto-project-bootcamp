@@ -1,3 +1,7 @@
+import './pages/index.css';
+
+
+
 const profile = document.querySelector('.profile');
 const buttonEdit = profile.querySelector('.profile__edit');
 const buttonAdd = profile.querySelector('.profile__button');
@@ -226,3 +230,4 @@ function enableValidation(){
 
 enableValidation();
 
+console.log('test');
