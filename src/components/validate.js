@@ -36,8 +36,6 @@ function setEventListeners(settings, form){
 
 function checkValidInput(inputs) {
   return inputs.some( (input) => {
-    console.log(input, input.validity.valid)
-    console.log(input.value)
     return !input.validity.valid;
   })
 }
