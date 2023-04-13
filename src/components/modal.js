@@ -13,9 +13,11 @@ const aboutUser = profile.querySelector('.profile__about-user');
 
 function hasEventEditButton(){
   openPopup(popupProfile);
+}
+
+function initForm(){
   inputUsername.value = username.textContent;
   inputAboutUser.value = aboutUser.textContent;
-  toggleButtonState(popupProfile);
 }
 
 function handleFormSubmit(evt){
@@ -34,4 +36,4 @@ popups.forEach((popup) => {
   })
 })
 
-export {hasEventEditButton, handleFormSubmit}
+export {hasEventEditButton, handleFormSubmit, initForm}

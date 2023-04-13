@@ -1,7 +1,7 @@
 import './pages/index.css';
 
 import {enableValidation} from './components/validate.js'
-import {hasEventEditButton, handleFormSubmit} from './components/modal.js'
+import {hasEventEditButton, handleFormSubmit, initForm} from './components/modal.js'
 import {closePopup,openPopup, cleanInput} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
 
@@ -13,9 +13,17 @@ const closeButtons = document.querySelectorAll('.popup__close');
 const profileForm = popupProfile.querySelector('.popup__form');
 const popupNewPlace = document.querySelector('.popup_new-place');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
-const formList = Array.from(document.querySelectorAll('.popup__form'));
 
-enableValidation(formList);
+initForm();
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}); 
 
 buttonEdit.addEventListener('click', hasEventEditButton);
 buttonAdd.addEventListener('click', () => {openPopup(popupNewPlace)});

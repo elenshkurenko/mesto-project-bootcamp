@@ -1,32 +1,32 @@
-function addErrorInput(form, input, errorMessage){
+function addErrorInput(settings, form, input, errorMessage){
   const errorEl = form.querySelector(`.${input.id}-error`);
-  input.classList.add('popup__input_type_error');
-  errorEl.classList.add('popup__input-error_active');
+  input.classList.add(settings.inputErrorClass);
+  errorEl.classList.add(settings.errorClass);
   errorEl.textContent = errorMessage; 
 }
 
-function removeErrorInput(form, input){
+function removeErrorInput(settings, form, input){
   const errorEl = form.querySelector(`.${input.id}-error`);
-  input.classList.remove('popup__input_type_error');
-  errorEl.classList.remove('popup__input-error_active'); 
+  input.classList.remove(settings.inputErrorClass);
+  errorEl.classList.remove(settings.errorClass); 
   errorEl.textContent = '';
 }
 
-function isValid(formElement, inputElement){
+function isValid(settings, formElement, inputElement){
   if(!inputElement.validity.valid){
-    addErrorInput(formElement, inputElement, inputElement.validationMessage);
+    addErrorInput(settings, formElement, inputElement, inputElement.validationMessage);
   }else{
-    removeErrorInput(formElement, inputElement);
+    removeErrorInput(settings, formElement, inputElement);
   }
 }
 
-function setEventListeners(form){
-  const inputs = Array.from(form.querySelectorAll(".popup__input"));
-  toggleButtonState(form);
+function setEventListeners(settings, form){
+  const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
+  toggleButtonState(settings, form, inputs);
   inputs.forEach((input) => {
     input.addEventListener('input', () => {
-      isValid(form, input);
-      toggleButtonState(form);
+      isValid(settings, form, input);
+      toggleButtonState(settings, form, inputs);
     });
   })
 }
@@ -37,20 +37,22 @@ function checkValidInput(inputs) {
   })
 }
 
-function toggleButtonState(form){
-  const button = form.querySelector('.popup__save');
-  const inputs = Array.from(form.querySelectorAll(".popup__input"));
+function toggleButtonState(settings, form, inputs){
+  const button = form.querySelector(settings.submitButtonSelector);
   if(checkValidInput(inputs)){
-    button.classList.add('popup__save_inactive');
+    button.classList.add(settings.inactiveButtonClass);
     button.setAttribute('disable', '');
   }else{
-    button.classList.remove('popup__save_inactive');
+    button.classList.remove(settings.inactiveButtonClass);
     button.removeAttribute('disable');
   }
 }
 
-function enableValidation(forms){
-  forms.forEach(form => setEventListeners(form));
+function enableValidation(settings){
+  const arrForm = Array.from(document.querySelectorAll(settings.formSelector));
+  arrForm.forEach(form => {
+    setEventListeners(settings, form)
+  });
 }
 
 
