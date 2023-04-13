@@ -1,5 +1,4 @@
-import {closePopup,cleanInput, openPopup} from './utils.js';
-import {toggleButtonState} from './validate.js'
+import {closePopup, openPopup} from './utils.js';
 
 const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
@@ -11,7 +10,7 @@ const aboutUser = profile.querySelector('.profile__about-user');
  
 
 
-function hasEventEditButton(){
+function openProfilePopup(){
   openPopup(popupProfile);
 }
 
@@ -20,7 +19,7 @@ function initForm(){
   inputAboutUser.value = aboutUser.textContent;
 }
 
-function handleFormSubmit(evt){
+function handleProfileFormSubmit(evt){
   evt.preventDefault();
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
@@ -31,9 +30,8 @@ popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
     if(!evt.target.closest('.popup__wrap')){
       closePopup(popup);
-      cleanInput(popup);
     }
   })
 })
 
-export {hasEventEditButton, handleFormSubmit, initForm}
+export {openProfilePopup, handleProfileFormSubmit, initForm}

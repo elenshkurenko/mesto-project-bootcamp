@@ -14,7 +14,6 @@ function cleanInput(popup){
 function closePopupEsc(evt, popup){
   if(evt.key === 'Escape'){
     closePopup(popup);
-    cleanInput(popup)
   }
 }
 

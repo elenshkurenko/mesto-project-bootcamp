@@ -1,8 +1,8 @@
 import './pages/index.css';
 
 import {enableValidation} from './components/validate.js'
-import {hasEventEditButton, handleFormSubmit, initForm} from './components/modal.js'
-import {closePopup,openPopup, cleanInput} from './components/utils.js';
+import {openProfilePopup, handleProfileFormSubmit, initForm} from './components/modal.js'
+import {closePopup,openPopup} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
 
 const profile = document.querySelector('.profile');
@@ -16,18 +16,17 @@ const newPlaceForm = popupNewPlace.querySelector('.popup__form');
 
 initForm();
 
-buttonEdit.addEventListener('click', hasEventEditButton);
+buttonEdit.addEventListener('click', openProfilePopup);
 buttonAdd.addEventListener('click', () => {openPopup(popupNewPlace)});
 
 closeButtons.forEach((item) => {
   const popup = item.closest('.popup');
   item.addEventListener('click', () => {
     closePopup(popup);
-    cleanInput(popup);
   });
   
 })
-profileForm.addEventListener('submit', handleFormSubmit);
+profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 initCards();
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
