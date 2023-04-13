@@ -7,8 +7,6 @@ const inputAboutUser = popupProfile.querySelector('.popup__input_type_about-user
 const profile = document.querySelector('.profile');
 const username = profile.querySelector('.profile__username');
 const aboutUser = profile.querySelector('.profile__about-user');
- 
-
 
 function openProfilePopup(){
   openPopup(popupProfile);

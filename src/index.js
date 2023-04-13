@@ -4,6 +4,8 @@ import {enableValidation} from './components/validate.js'
 import {openProfilePopup, handleProfileFormSubmit, initForm} from './components/modal.js'
 import {closePopup,openPopup} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
+import {getUserInfo} from './components/api.js';
+import {updateUserInfo} from './components/profile.js'
 
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
@@ -39,3 +41,6 @@ enableValidation({
   inputErrorClass: 'popup__input_type_error',
   errorClass: 'popup__input-error_active'
 });
+
+getUserInfo()
+.then(data => updateUserInfo(data));
