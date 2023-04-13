@@ -1,38 +1,11 @@
 import {closePopup, openPopup, cleanInput} from './utils.js';
+import {loadCards} from './api.js'
 
-const cards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
 const inputPlacelink = popupNewPlace.querySelector('.popup__input_type_placelink');
 const gallery = document.querySelector('.gallery');
 const templateCard = document.querySelector('#template-card').content;
-
-
 
 const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
@@ -55,9 +28,12 @@ function createCard(item){
 
 function initCards(){
   gallery.innerHTML = '';
-  cards.forEach((item) => {
-    gallery.append(createCard(item));
-  });
+  loadCards()
+  .then(cards => {
+    cards.forEach((item) => {
+      gallery.append(createCard(item));
+    });
+  })
 }
 
 function addCardFormSubmit(evt){
