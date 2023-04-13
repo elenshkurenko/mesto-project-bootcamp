@@ -10,7 +10,6 @@ function cleanInput(popup){
   if(popup.querySelector('.popup__form')){
     popup.querySelector('.popup__form').reset();
   }
- 
 }
 function closePopupEsc(evt, popup){
   if(evt.key === 'Escape'){

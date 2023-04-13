@@ -29,10 +29,15 @@ function setEventListeners(settings, form){
       toggleButtonState(settings, form, inputs);
     });
   })
+  form.addEventListener('submit', () => {
+      toggleButtonState(settings, form, inputs);
+  })
 }
 
 function checkValidInput(inputs) {
   return inputs.some( (input) => {
+    console.log(input, input.validity.valid)
+    console.log(input.value)
     return !input.validity.valid;
   })
 }

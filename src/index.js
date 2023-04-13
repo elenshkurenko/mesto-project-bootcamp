@@ -16,15 +16,6 @@ const newPlaceForm = popupNewPlace.querySelector('.popup__form');
 
 initForm();
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-}); 
-
 buttonEdit.addEventListener('click', hasEventEditButton);
 buttonAdd.addEventListener('click', () => {openPopup(popupNewPlace)});
 
@@ -40,3 +31,12 @@ profileForm.addEventListener('submit', handleFormSubmit);
 
 initCards();
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+});

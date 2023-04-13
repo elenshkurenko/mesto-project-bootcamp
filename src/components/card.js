@@ -38,17 +38,8 @@ const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
 const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
 
-
-
-function addNewCard(){
-  cards.unshift({
-    name: inputPlacename.value,
-    link: inputPlacelink.value
-  })
-  initCards();
-}
-
 function createCard(item){
+
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
@@ -72,7 +63,12 @@ function initCards(){
 function addCardFormSubmit(evt){
   evt.preventDefault();
   
-  addNewCard();
+  const card = createCard({
+    name: inputPlacename.value,
+    link: inputPlacelink.value
+  })
+
+  gallery.prepend(card);
   closePopup(popupNewPlace);
   cleanInput(popupNewPlace);
 }
