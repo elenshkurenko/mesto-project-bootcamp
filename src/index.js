@@ -3,7 +3,9 @@ import './pages/index.css';
 import {enableValidation} from './components/validate.js'
 import {hasEventEditButton, handleFormSubmit} from './components/modal.js'
 import {closePopup,openPopup, cleanInput} from './components/utils.js';
-import {initCards, addCardFormSubmit} from './components/card.js'
+import {initCards, addCardFormSubmit} from './components/card.js';
+import {getUserInfo} from './components/api.js';
+import {updateUserInfo} from './components/profile.js'
 
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
@@ -32,3 +34,6 @@ profileForm.addEventListener('submit', handleFormSubmit);
 
 initCards();
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
+
+getUserInfo()
+.then(data => updateUserInfo(data));
