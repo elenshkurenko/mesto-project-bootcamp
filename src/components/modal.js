@@ -1,4 +1,5 @@
 import {closePopup, openPopup} from './utils.js';
+import{editProfile} from './api.js';
 
 const popups = document.querySelectorAll('.popup');
 const popupProfile = document.querySelector('.popup_profile');
@@ -21,6 +22,7 @@ function handleProfileFormSubmit(evt){
   evt.preventDefault();
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
+  editProfile(inputUsername.value, inputAboutUser.value);
   closePopup(popupProfile);
 }
 
