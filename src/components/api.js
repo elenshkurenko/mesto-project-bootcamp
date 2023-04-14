@@ -1,8 +1,14 @@
+const config = {
+  baseUrl: 'https://nomoreparties.co/v1/wbf-cohort-7',
+  headers: {
+    authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57',
+    'Content-Type': 'application/json'
+  }
+}
+
 function getUserInfo() {
-  return fetch('https://mesto.nomoreparties.co/v1/wbf-cohort-7/users/me', {
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57'
-    }
+  return fetch(`${config.baseUrl}/users/me`, {
+    headers: config.headers
   })
   .then(res => {
     if(res.ok) {
@@ -10,13 +16,14 @@ function getUserInfo() {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
 
 function loadCards(){
-  return fetch('https://mesto.nomoreparties.co/v1/wbf-cohort-7/cards', {
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57'
-    }
+  return fetch(`${config.baseUrl}/cards`, {
+    headers: config.headers
   })
   .then(res => {
     if(res.ok){
@@ -24,15 +31,15 @@ function loadCards(){
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
 
 function editProfile(username, aboutUser){
-  return fetch('https://mesto.nomoreparties.co/v1/wbf-cohort-7/users/me', {
+  return fetch(`${config.baseUrl}/users/me`, {
   method: 'PATCH',
-  headers: {
-    authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57',
-    'Content-Type': 'application/json'
-  },
+  headers: config.headers,
   body: JSON.stringify({
     name: username,
     about: aboutUser
@@ -47,15 +54,15 @@ function editProfile(username, aboutUser){
   .then(data => {
     return data
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
 
 function addNewCard(cardName, cardLink) {
-  return fetch('https://mesto.nomoreparties.co/v1/wbf-cohort-7/cards', {
+  return fetch(`${config.baseUrl}/cards`, {
     method: 'POST',
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       name: cardName,
       link: cardLink
@@ -67,13 +74,15 @@ function addNewCard(cardName, cardLink) {
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
+
 function removeCard(id){
-  return fetch(`https://mesto.nomoreparties.co/v1/wbf-cohort-7/cards/${id}`, {
+  return fetch(`${config.baseUrl}/cards/${id}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57'
-    }
+    headers: config.headers
   })
   .then(res => {
     if(res.ok){
@@ -81,14 +90,15 @@ function removeCard(id){
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
 
 function addLike(id){
-  return fetch(`https://mesto.nomoreparties.co/v1/wbf-cohort-7/cards/likes/${id}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'PUT',
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57'
-    }
+    headers: config.headers
   })
   .then(res => {
     if(res.ok){
@@ -102,11 +112,9 @@ function addLike(id){
 }
 
 function removeLike(id){
-  return fetch(`https://mesto.nomoreparties.co/v1/wbf-cohort-7/cards/likes/${id}`, {
+  return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'DELETE',
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57'
-    }
+    headers: config.headers
   })
   .then(res => {
     if(res.ok){
@@ -120,23 +128,22 @@ function removeLike(id){
 }
 
 function setNewAvatar(avatarlink){
-  return fetch('https://nomoreparties.co/v1/wbf-cohort-7/users/me/avatar', {
+  return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
-    headers: {
-      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57',
-      'Content-Type': 'application/json'
-    },
+    headers: config.headers,
     body: JSON.stringify({
       avatar: avatarlink
     })
   })
-    .then(res => {
-      if(res.ok){
-        return res.json();
-      }
-      return Promise.reject(`Ошибка: ${res.status}`);
-    })
+  .then(res => {
+    if(res.ok){
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }
-
 
 export {getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike, setNewAvatar}
