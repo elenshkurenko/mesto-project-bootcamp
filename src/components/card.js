@@ -1,5 +1,5 @@
 import {closePopup, openPopup, cleanInput} from './utils.js';
-import {loadCards} from './api.js'
+import {loadCards, addNewCard} from './api.js'
 
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
@@ -45,8 +45,11 @@ function addCardFormSubmit(evt){
   })
 
   gallery.prepend(card);
+  console.log(inputPlacename.value)
+  addNewCard(inputPlacename.value, inputPlacelink.value);
   closePopup(popupNewPlace);
   cleanInput(popupNewPlace);
+
 }
 
 function addEventLike(card){
