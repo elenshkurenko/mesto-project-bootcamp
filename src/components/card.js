@@ -1,5 +1,5 @@
 import {closePopup, openPopup, cleanInput} from './utils.js';
-import {loadCards, addNewCard} from './api.js'
+import {loadCards, addNewCard, removeCard} from './api.js'
 
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
@@ -12,22 +12,31 @@ const imageFromPopup = popupOpenImage.querySelector('.popup__image');
 const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
 
 function createCard(item){
-
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
   const cardLikes = card.querySelector('.gallery__likes');
+  const iconDeleteCard = card.querySelector('.gallery__delete-button');
+  const canDeleteCard = checkDeleteCard(item.owner._id);
 
   cardImage.src= item.link;
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
-  cardLikes.textContent = item.likes.length
+  cardLikes.textContent = item.likes.length;
 
   addEventLike(card);
-  deleteCard(card);
+  deleteCard(card, item._id);
   handleImage(card);
 
+  if(!canDeleteCard){
+    iconDeleteCard.remove();
+  }
+
   return card;
+}
+
+function checkDeleteCard(id) {
+  return id === '12284cd080471aa186314a04';
 }
 
 function initCards(){
@@ -42,15 +51,15 @@ function initCards(){
 
 function addCardFormSubmit(evt){
   evt.preventDefault();
-  
-  const card = createCard({
-    name: inputPlacename.value,
-    link: inputPlacelink.value
-  })
 
-  gallery.prepend(card);
-  console.log(inputPlacename.value)
-  addNewCard(inputPlacename.value, inputPlacelink.value);
+  addNewCard(inputPlacename.value, inputPlacelink.value)
+  .then(data => {
+
+    const card = createCard(data)
+  
+    gallery.prepend(card);
+    console.log(inputPlacename.value)
+  })
   closePopup(popupNewPlace);
   cleanInput(popupNewPlace);
 
@@ -61,9 +70,12 @@ function addEventLike(card){
   likeButton.addEventListener('click', () => likeButton.classList.toggle('gallery__like-button_active'));
 }
 
-function deleteCard(card){
+function deleteCard(card, id){
   const deleteButton = card.querySelector('.gallery__delete-button');
-  deleteButton.addEventListener('click', () => card.remove());
+  deleteButton.addEventListener('click', () =>{
+    removeCard(id);
+    card.remove()
+  });
 }
 
 function handleImage(card){
