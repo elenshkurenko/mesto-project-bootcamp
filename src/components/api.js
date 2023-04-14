@@ -44,6 +44,9 @@ function editProfile(username, aboutUser){
     }
     return Promise.reject(`Ошибка: ${res.status}`);
   })
+  .then(data => {
+    return data
+  })
 }
 
 function addNewCard(cardName, cardLink) {

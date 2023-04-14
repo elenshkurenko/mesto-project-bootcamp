@@ -16,9 +16,13 @@ function createCard(item){
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
+  const cardLikes = card.querySelector('.gallery__likes');
+
   cardImage.src= item.link;
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
+  cardLikes.textContent = item.likes.length
+
   addEventLike(card);
   deleteCard(card);
   handleImage(card);
