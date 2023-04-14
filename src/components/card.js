@@ -1,5 +1,5 @@
 import {closePopup, openPopup, cleanInput} from './utils.js';
-import {loadCards, addNewCard, removeCard} from './api.js'
+import {loadCards, addNewCard, removeCard, addLike, removeLike} from './api.js'
 
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
@@ -10,21 +10,29 @@ const templateCard = document.querySelector('#template-card').content;
 const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
 const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
+const myId = '12284cd080471aa186314a04';
 
 function createCard(item){
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
-  const cardLikes = card.querySelector('.gallery__likes');
   const iconDeleteCard = card.querySelector('.gallery__delete-button');
   const canDeleteCard = checkDeleteCard(item.owner._id);
+
+  addEventLike(card,item, item._id);
 
   cardImage.src= item.link;
   cardImage.alt= item.name;
   cardTitle.textContent = item.name;
-  cardLikes.textContent = item.likes.length;
 
-  addEventLike(card);
+  if(checkIlike(item.likes)){
+    card.querySelector('.gallery__like-button').classList.add('gallery__like-button_active');
+    
+  }
+
+  
+  cardLikes(card, item);
+  
   deleteCard(card, item._id);
   handleImage(card);
 
@@ -35,8 +43,19 @@ function createCard(item){
   return card;
 }
 
+function cardLikes(card, item) {
+  const cardLikes = card.querySelector('.gallery__likes');
+  cardLikes.textContent = item.likes.length;
+}
+
 function checkDeleteCard(id) {
-  return id === '12284cd080471aa186314a04';
+  return id === myId;
+}
+
+function checkIlike(likes){
+  return likes.some(el => {
+    return el._id === myId;
+  })
 }
 
 function initCards(){
@@ -58,16 +77,29 @@ function addCardFormSubmit(evt){
     const card = createCard(data)
   
     gallery.prepend(card);
-    console.log(inputPlacename.value)
   })
   closePopup(popupNewPlace);
   cleanInput(popupNewPlace);
 
 }
 
-function addEventLike(card){
+function addEventLike(card, item, id){
   const likeButton = card.querySelector('.gallery__like-button');
-  likeButton.addEventListener('click', () => likeButton.classList.toggle('gallery__like-button_active'));
+  likeButton.addEventListener('click', () => {
+    if(likeButton.classList.contains('gallery__like-button_active')){
+      removeLike(id)
+      .then(data => {
+        cardLikes(card, data);
+      })
+    }else{
+      addLike(id)
+      .then(data => {
+        cardLikes(card, data);
+      })
+    }
+    
+    likeButton.classList.toggle('gallery__like-button_active');
+  });
 }
 
 function deleteCard(card, id){
