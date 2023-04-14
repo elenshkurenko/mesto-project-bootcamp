@@ -119,5 +119,24 @@ function removeLike(id){
   }); 
 }
 
+function setNewAvatar(avatarlink){
+  return fetch('https://nomoreparties.co/v1/wbf-cohort-7/users/me/avatar', {
+    method: 'PATCH',
+    headers: {
+      authorization: '73c9eeaa-e096-4c6c-9b04-d0a45e0a4e57',
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      avatar: avatarlink
+    })
+  })
+    .then(res => {
+      if(res.ok){
+        return res.json();
+      }
+      return Promise.reject(`Ошибка: ${res.status}`);
+    })
+}
 
-export {getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike}
+
+export {getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike, setNewAvatar}

@@ -5,21 +5,25 @@ import {openProfilePopup, handleProfileFormSubmit, initForm} from './components/
 import {closePopup,openPopup} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
 import {getUserInfo} from './components/api.js';
-import {updateUserInfo} from './components/profile.js'
+import {updateUserInfo, updateAvatar} from './components/profile.js'
 
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
 const buttonEdit = profile.querySelector('.profile__edit');
 const buttonAdd = profile.querySelector('.profile__button');
+const avatar = profile.querySelector('.profile__edit-avatar');
 const closeButtons = document.querySelectorAll('.popup__close');
 const profileForm = popupProfile.querySelector('.popup__form');
 const popupNewPlace = document.querySelector('.popup_new-place');
+const popupUpdateAvatar = document.querySelector('.popup_update-avatar');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
+const avatarForm = popupUpdateAvatar.querySelector('.popup__form');
 
 initForm();
 
 buttonEdit.addEventListener('click', openProfilePopup);
 buttonAdd.addEventListener('click', () => {openPopup(popupNewPlace)});
+avatar.addEventListener('click', () => openPopup(popupUpdateAvatar));
 
 closeButtons.forEach((item) => {
   const popup = item.closest('.popup');
@@ -32,6 +36,8 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 initCards();
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
+
+avatarForm.addEventListener('submit', updateAvatar);
 
 enableValidation({
   formSelector: '.popup__form',
