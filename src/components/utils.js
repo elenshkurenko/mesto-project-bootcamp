@@ -19,4 +19,15 @@ function closePopupEsc(evt){
   }
 }
 
-export {closePopup, openPopup, cleanInput}
+function startSend(button){
+  button.textContent = 'Сохранение...'
+}
+
+function endSend(popup, button){
+  if(popup.classList.contains('popup_new-place')){
+    button.textContent = 'Создать';
+  }
+  button.textContent = 'Сохранить';
+}
+
+export {closePopup, openPopup, cleanInput, startSend, endSend}

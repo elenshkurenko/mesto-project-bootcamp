@@ -1,4 +1,4 @@
-import {closePopup, openPopup} from './utils.js';
+import {closePopup, openPopup, startSend, endSend} from './utils.js';
 import{editProfile} from './api.js';
 
 const popups = document.querySelectorAll('.popup');
@@ -8,21 +8,28 @@ const inputAboutUser = popupProfile.querySelector('.popup__input_type_about-user
 const profile = document.querySelector('.profile');
 const username = profile.querySelector('.profile__username');
 const aboutUser = profile.querySelector('.profile__about-user');
+const submitButtonProfile = popupProfile.querySelector('.popup__save');
 
 function openProfilePopup(){
   openPopup(popupProfile);
 }
 
-function initForm(){
-  inputUsername.value = username.textContent;
-  inputAboutUser.value = aboutUser.textContent;
+function initForm(data){
+  inputUsername.value = data.name;
+  inputAboutUser.value = data.about;
 }
 
 function handleProfileFormSubmit(evt){
   evt.preventDefault();
+
+  startSend(submitButtonProfile);
+
   username.textContent = inputUsername.value;
   aboutUser.textContent = inputAboutUser.value;
   editProfile(inputUsername.value, inputAboutUser.value);
+
+  endSend(popupProfile, submitButtonProfile);
+
   closePopup(popupProfile);
 }
 
