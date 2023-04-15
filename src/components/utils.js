@@ -39,4 +39,9 @@ function disableButton(button){
     button.setAttribute('disable', '');
 }
 
-export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse, disableButton}
+function enableButton(button) {
+  button.classList.remove('popup__save_inactive');
+    button.removeAttribute('disable');
+}
+
+export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse, disableButton, enableButton}

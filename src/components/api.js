@@ -24,12 +24,12 @@ function loadCards(){
 
 function editProfile(username, aboutUser){
   return fetch(`${config.baseUrl}/users/me`, {
-  method: 'PATCH',
-  headers: config.headers,
-  body: JSON.stringify({
-    name: username,
-    about: aboutUser
-  })
+    method: 'PATCH',
+    headers: config.headers,
+    body: JSON.stringify({
+      name: username,
+      about: aboutUser
+    })
   })
   .then(checkResponse)
   .then(data => {

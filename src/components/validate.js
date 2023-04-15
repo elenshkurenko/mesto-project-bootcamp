@@ -1,4 +1,4 @@
-import {disableButton} from './utils.js'
+import {disableButton, enableButton} from './utils.js'
 
 function addErrorInput(settings, form, input, errorMessage){
   const errorEl = form.querySelector(`.${input.id}-error`);
@@ -49,8 +49,7 @@ function toggleButtonState(settings, form, inputs){
   if(checkValidInput(inputs)){
     disableButton(button)
   }else{
-    button.classList.remove('popup__save_inactive');
-    button.removeAttribute('disable');
+    enableButton(button)
   }
 }
 

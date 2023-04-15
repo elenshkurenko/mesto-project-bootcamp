@@ -60,17 +60,11 @@ function checkIlike(likes){
   })
 }
 
-function initCards(){
+function initCards(cards){
   gallery.innerHTML = '';
-  loadCards()
-  .then(cards => {
-    cards.forEach((item) => {
-      gallery.append(createCard(item));
-    });
+  cards.forEach((item) => {
+    gallery.append(createCard(item));
   })
-  .catch((err) => {
-    console.log(err);
-  }) 
 }
 
 function handleCardFormSubmit(evt){

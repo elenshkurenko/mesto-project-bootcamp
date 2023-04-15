@@ -1,10 +1,10 @@
 import './pages/index.css';
 
 import {enableValidation} from './components/validate.js'
-import {openProfilePopup, fillProfileInputs} from './components/modal.js'
+import {openProfilePopup} from './components/modal.js'
 import {closePopup, openPopup} from './components/utils.js';
 import {initCards, handleCardFormSubmit} from './components/card.js'
-import {getUserInfo} from './components/api.js';
+import {getUserInfo, loadCards} from './components/api.js';
 import {updateUserInfo, updateAvatar, handleProfileFormSubmit} from './components/profile.js';
 
 let userId;
@@ -13,8 +13,6 @@ const popups = document.querySelectorAll('.popup');
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
 const buttonEdit = profile.querySelector('.profile__edit');
-const username = profile.querySelector('.profile__username');
-const aboutUser = profile.querySelector('.profile__about-user');
 const buttonAdd = profile.querySelector('.profile__button');
 const avatar = profile.querySelector('.profile__edit-avatar');
 const closeButtons = document.querySelectorAll('.popup__close');
@@ -23,11 +21,6 @@ const popupNewPlace = document.querySelector('.popup_new-place');
 const popupUpdateAvatar = document.querySelector('.popup_update-avatar');
 const newPlaceForm = popupNewPlace.querySelector('.popup__form');
 const avatarForm = popupUpdateAvatar.querySelector('.popup__form');
-
-fillProfileInputs({
-  name: username.textContent,
-  about: aboutUser.textContent
-})
 
 buttonEdit.addEventListener('click', openProfilePopup);
 buttonAdd.addEventListener('click', () => openPopup(popupNewPlace));
@@ -62,15 +55,17 @@ enableValidation({
   errorClass: 'popup__input-error_active'
 });
 
-getUserInfo()
-.then(data => {
-  userId = data._id;
-  updateUserInfo(data);
-  fillProfileInputs(data);
-  initCards();
-})
-.catch((err) => {
-  console.log(err);
-}) 
+
+Promise.all([getUserInfo(), loadCards()])
+  .then(([userData, cards]) => {
+      console.log(userData);
+      userId = userData._id;
+      updateUserInfo(userData);
+
+      initCards(cards);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 
 export {userId}
