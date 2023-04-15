@@ -5,7 +5,9 @@ import {openProfilePopup, handleProfileFormSubmit, initForm} from './components/
 import {closePopup, openPopup} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
 import {getUserInfo} from './components/api.js';
-import {updateUserInfo, updateAvatar} from './components/profile.js'
+import {updateUserInfo, updateAvatar} from './components/profile.js';
+
+let userId;
 
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
@@ -40,7 +42,7 @@ closeButtons.forEach((item) => {
 avatarForm.addEventListener('submit', updateAvatar);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-initCards();
+
 newPlaceForm.addEventListener('submit', addCardFormSubmit);
 
 
@@ -55,10 +57,13 @@ enableValidation({
 
 getUserInfo()
 .then(data => {
+  userId = data._id;
   updateUserInfo(data);
   initForm(data);
+  initCards();
 })
 .catch((err) => {
   console.log(err);
 }) 
 
+export {userId}

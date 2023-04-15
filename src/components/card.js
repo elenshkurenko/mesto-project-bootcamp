@@ -1,5 +1,6 @@
 import {closePopup, openPopup, cleanInput, startSend, endSend} from './utils.js';
-import {loadCards, addNewCard, removeCard, addLike, removeLike} from './api.js'
+import {loadCards, addNewCard, removeCard, addLike, removeLike} from './api.js';
+import { userId } from '../index.js';
 
 const popupNewPlace = document.querySelector('.popup_new-place');
 const inputPlacename = popupNewPlace.querySelector('.popup__input_type_placename');
@@ -11,10 +12,11 @@ const templateCard = document.querySelector('#template-card').content;
 const popupOpenImage = document.querySelector('.popup__open-image');
 const imageFromPopup = popupOpenImage.querySelector('.popup__image');
 const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
-const myId = '12284cd080471aa186314a04';
+
 
 
 function createCard(item){
+  console.log(userId);
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
@@ -29,11 +31,10 @@ function createCard(item){
 
   if(checkIlike(item.likes)){
     card.querySelector('.gallery__like-button').classList.add('gallery__like-button_active');
-    
   }
 
   
-  cardLikes(card, item);
+  setCardLikes(card, item);
   
   deleteCard(card, item._id);
   handleImage(card);
@@ -45,18 +46,19 @@ function createCard(item){
   return card;
 }
 
-function cardLikes(card, item) {
+function setCardLikes(card, item) {
   const cardLikes = card.querySelector('.gallery__likes');
   cardLikes.textContent = item.likes.length;
 }
 
 function checkDeleteCard(id) {
-  return id === myId;
+  return id === userId;
 }
 
 function checkIlike(likes){
+  console.log(userId);
   return likes.some(el => {
-    return el._id === myId;
+    return el._id === userId;
   })
 }
 
@@ -80,16 +82,16 @@ function addCardFormSubmit(evt){
   
   addNewCard(inputPlacename.value, inputPlacelink.value)
   .then(data => {
-    endSend(popupNewPlace, submitButtonNewPlace)
     const card = createCard(data)
-  
     gallery.prepend(card);
+
+    closePopup(popupNewPlace);
+    cleanInput(popupNewPlace);
   })
   .catch((err) => {
     console.log(err);
-  }) 
-    closePopup(popupNewPlace);
-    cleanInput(popupNewPlace);
+  })
+  .finally(() => endSend(popupNewPlace, submitButtonNewPlace))
 }
 
 function addEventLike(card, id){
@@ -98,7 +100,8 @@ function addEventLike(card, id){
     if(likeButton.classList.contains('gallery__like-button_active')){
       removeLike(id)
       .then(data => {
-        cardLikes(card, data);
+        setCardLikes(card, data);
+        likeButton.classList.remove('gallery__like-button_active');
       })
       .catch((err) => {
         console.log(err);
@@ -106,22 +109,26 @@ function addEventLike(card, id){
     }else{
       addLike(id)
       .then(data => {
-        cardLikes(card, data);
+        setCardLikes(card, data);
+        likeButton.classList.add('gallery__like-button_active');
       })
       .catch((err) => {
         console.log(err);
       }) 
     }
-    
-    likeButton.classList.toggle('gallery__like-button_active');
   });
 }
 
 function deleteCard(card, id){
   const deleteButton = card.querySelector('.gallery__delete-button');
   deleteButton.addEventListener('click', () =>{
-    removeCard(id);
-    card.remove()
+    removeCard(id)
+    .then(() => {
+      card.remove()
+    })
+    .catch((err) => {
+      console.log(err);
+    })
   });
 }
 
