@@ -16,7 +16,6 @@ const imageTitleFromPopup = popupOpenImage.querySelector('.popup__image-title');
 
 
 function createCard(item){
-  console.log(userId);
   const card = templateCard.querySelector('.gallery__item').cloneNode(true);
   const cardImage = card.querySelector('.gallery__image');
   const cardTitle = card.querySelector('.gallery__title');
@@ -56,7 +55,6 @@ function checkDeleteCard(id) {
 }
 
 function checkIlike(likes){
-  console.log(userId);
   return likes.some(el => {
     return el._id === userId;
   })
