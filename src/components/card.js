@@ -89,7 +89,7 @@ function addCardFormSubmit(evt){
   .catch((err) => {
     console.log(err);
   })
-  .finally(() => endSend(popupNewPlace, submitButtonNewPlace))
+  .finally(() => endSend(submitButtonNewPlace, 'Создать'))
 }
 
 function addEventLike(card, id){

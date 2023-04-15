@@ -26,7 +26,7 @@ function updateAvatar(evt){
   
   setNewAvatar(unpadAvatarInput.value)
   .then(data => {
-    endSend(popupAvatar, submitButtonAvatar);
+    endSend(submitButtonAvatar);
     updateUserInfo(data);
   })
   .catch((err) => {
@@ -51,7 +51,7 @@ function handleProfileFormSubmit(evt){
     console.log(err);
   })
   .finally(() => {
-    endSend(popupProfile, submitButtonProfile);
+    endSend(submitButtonProfile);
     closePopup(popupProfile);
   })
 }

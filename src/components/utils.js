@@ -23,12 +23,11 @@ function startSend(button){
   button.textContent = 'Сохранение...'
 }
 
-function endSend(popup, button){
-  if(popup.classList.contains('popup_new-place')){
-    button.textContent = 'Создать';
-  }
-  button.textContent = 'Сохранить';
+function endSend(button, text='Сохранить'){
+  button.textContent = text;
 }
+
+
 
 function checkResponse(res) {
   if(res.ok) {
