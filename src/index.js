@@ -3,7 +3,7 @@ import './pages/index.css';
 import {enableValidation} from './components/validate.js'
 import {openProfilePopup, fillProfileInputs} from './components/modal.js'
 import {closePopup, openPopup} from './components/utils.js';
-import {initCards, addCardFormSubmit} from './components/card.js'
+import {initCards, handleCardFormSubmit} from './components/card.js'
 import {getUserInfo} from './components/api.js';
 import {updateUserInfo, updateAvatar, handleProfileFormSubmit} from './components/profile.js';
 
@@ -30,7 +30,7 @@ fillProfileInputs({
 })
 
 buttonEdit.addEventListener('click', openProfilePopup);
-buttonAdd.addEventListener('click', () => {openPopup(popupNewPlace)});
+buttonAdd.addEventListener('click', () => openPopup(popupNewPlace));
 avatar.addEventListener('click', () => openPopup(popupUpdateAvatar));
 
 closeButtons.forEach((item) => {
@@ -50,7 +50,7 @@ popups.forEach((popup) => {
 
 avatarForm.addEventListener('submit', updateAvatar);
 profileForm.addEventListener('submit', handleProfileFormSubmit);
-newPlaceForm.addEventListener('submit', addCardFormSubmit);
+newPlaceForm.addEventListener('submit', handleCardFormSubmit);
 
 
 enableValidation({

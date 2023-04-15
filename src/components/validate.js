@@ -1,3 +1,5 @@
+import {disableButton} from './utils.js'
+
 function addErrorInput(settings, form, input, errorMessage){
   const errorEl = form.querySelector(`.${input.id}-error`);
   input.classList.add(settings.inputErrorClass);
@@ -22,6 +24,8 @@ function isValid(settings, formElement, inputElement){
 
 function setEventListeners(settings, form){
   const inputs = Array.from(form.querySelectorAll(settings.inputSelector));
+  const button = form.querySelector(settings.submitButtonSelector);
+  
   toggleButtonState(settings, form, inputs);
   inputs.forEach((input) => {
     input.addEventListener('input', () => {
@@ -29,8 +33,8 @@ function setEventListeners(settings, form){
       toggleButtonState(settings, form, inputs);
     });
   })
-  form.addEventListener('submit', () => {
-      toggleButtonState(settings, form, inputs);
+  form.addEventListener('reset', () => {
+    disableButton(button)
   })
 }
 
@@ -43,10 +47,9 @@ function checkValidInput(inputs) {
 function toggleButtonState(settings, form, inputs){
   const button = form.querySelector(settings.submitButtonSelector);
   if(checkValidInput(inputs)){
-    button.classList.add(settings.inactiveButtonClass);
-    button.setAttribute('disable', '');
+    disableButton(button)
   }else{
-    button.classList.remove(settings.inactiveButtonClass);
+    button.classList.remove('popup__save_inactive');
     button.removeAttribute('disable');
   }
 }
@@ -58,6 +61,4 @@ function enableValidation(settings){
   });
 }
 
-
-
-export {enableValidation, toggleButtonState}
+export {enableValidation}

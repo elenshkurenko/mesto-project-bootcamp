@@ -27,8 +27,6 @@ function endSend(button, text='Сохранить'){
   button.textContent = text;
 }
 
-
-
 function checkResponse(res) {
   if(res.ok) {
     return res.json();
@@ -36,4 +34,9 @@ function checkResponse(res) {
   return Promise.reject(`Ошибка: ${res.status}`);
 }
 
-export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse}
+function disableButton(button){
+    button.classList.add('popup__save_inactive');
+    button.setAttribute('disable', '');
+}
+
+export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse, disableButton}

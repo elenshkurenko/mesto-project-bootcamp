@@ -73,7 +73,7 @@ function initCards(){
   }) 
 }
 
-function addCardFormSubmit(evt){
+function handleCardFormSubmit(evt){
   evt.preventDefault();
 
   startSend(submitButtonNewPlace);
@@ -83,13 +83,13 @@ function addCardFormSubmit(evt){
     const card = createCard(data)
     gallery.prepend(card);
 
-    closePopup(popupNewPlace);
     cleanInput(popupNewPlace);
+    closePopup(popupNewPlace);
   })
   .catch((err) => {
     console.log(err);
   })
-  .finally(() => endSend(submitButtonNewPlace, 'Создать'))
+  .finally(() => endSend(submitButtonNewPlace))
 }
 
 function addEventLike(card, id){
@@ -142,4 +142,4 @@ function handleImage(card){
   })
 }
 
-export {initCards, addCardFormSubmit}
+export {initCards, handleCardFormSubmit}
