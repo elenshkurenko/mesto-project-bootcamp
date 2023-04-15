@@ -30,4 +30,11 @@ function endSend(popup, button){
   button.textContent = 'Сохранить';
 }
 
-export {closePopup, openPopup, cleanInput, startSend, endSend}
+function checkResponse(res) {
+  if(res.ok) {
+    return res.json();
+  }
+  return Promise.reject(`Ошибка: ${res.status}`);
+}
+
+export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse}

@@ -25,6 +25,9 @@ function updateAvatar(evt){
     endSend(popupAvatar, submitButtonAvatar);
     updateUserInfo(data);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 
   cleanInput(popupAvatar);
   closePopup(popupAvatar);

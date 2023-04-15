@@ -1,3 +1,5 @@
+import {checkResponse} from './utils.js'
+
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wbf-cohort-7',
   headers: {
@@ -10,30 +12,14 @@ function getUserInfo() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then(res => {
-    if(res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  }) 
+  .then(checkResponse)
 }
 
 function loadCards(){
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  }) 
+  .then(checkResponse)
 }
 
 function editProfile(username, aboutUser){
@@ -45,18 +31,10 @@ function editProfile(username, aboutUser){
     about: aboutUser
   })
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
+  .then(checkResponse)
   .then(data => {
     return data
   })
-  .catch((err) => {
-    console.log(err);
-  }) 
 }
 
 function addNewCard(cardName, cardLink) {
@@ -68,15 +46,7 @@ function addNewCard(cardName, cardLink) {
       link: cardLink
     })
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  }) 
+  .then(checkResponse)
 }
 
 function removeCard(id){
@@ -84,15 +54,7 @@ function removeCard(id){
     method: 'DELETE',
     headers: config.headers
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  }) 
+  .then(checkResponse)
 }
 
 function addLike(id){
@@ -100,15 +62,7 @@ function addLike(id){
     method: 'PUT',
     headers: config.headers
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err); 
-  }); 
+  .then(checkResponse)
 }
 
 function removeLike(id){
@@ -116,15 +70,7 @@ function removeLike(id){
     method: 'DELETE',
     headers: config.headers
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err); 
-  }); 
+  .then(checkResponse)
 }
 
 function setNewAvatar(avatarlink){
@@ -135,15 +81,7 @@ function setNewAvatar(avatarlink){
       avatar: avatarlink
     })
   })
-  .then(res => {
-    if(res.ok){
-      return res.json();
-    }
-    return Promise.reject(`Ошибка: ${res.status}`);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
+  .then(checkResponse)
 }
 
 export {getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike, setNewAvatar}

@@ -68,6 +68,9 @@ function initCards(){
       gallery.append(createCard(item));
     });
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
 }
 
 function addCardFormSubmit(evt){
@@ -82,6 +85,9 @@ function addCardFormSubmit(evt){
   
     gallery.prepend(card);
   })
+  .catch((err) => {
+    console.log(err);
+  }) 
     closePopup(popupNewPlace);
     cleanInput(popupNewPlace);
 }
@@ -94,11 +100,17 @@ function addEventLike(card, id){
       .then(data => {
         cardLikes(card, data);
       })
+      .catch((err) => {
+        console.log(err);
+      }) 
     }else{
       addLike(id)
       .then(data => {
         cardLikes(card, data);
       })
+      .catch((err) => {
+        console.log(err);
+      }) 
     }
     
     likeButton.classList.toggle('gallery__like-button_active');

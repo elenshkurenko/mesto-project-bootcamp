@@ -57,5 +57,8 @@ getUserInfo()
 .then(data => {
   updateUserInfo(data);
   initForm(data);
-});
+})
+.catch((err) => {
+  console.log(err);
+}) 
 
