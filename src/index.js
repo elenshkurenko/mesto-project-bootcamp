@@ -1,11 +1,11 @@
 import './pages/index.css';
 
 import {enableValidation} from './components/validate.js'
-import {openProfilePopup, handleProfileFormSubmit, fillProfileInputs} from './components/modal.js'
+import {openProfilePopup, fillProfileInputs} from './components/modal.js'
 import {closePopup, openPopup} from './components/utils.js';
 import {initCards, addCardFormSubmit} from './components/card.js'
 import {getUserInfo} from './components/api.js';
-import {updateUserInfo, updateAvatar} from './components/profile.js';
+import {updateUserInfo, updateAvatar, handleProfileFormSubmit} from './components/profile.js';
 
 let userId;
 

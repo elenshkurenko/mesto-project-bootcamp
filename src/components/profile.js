@@ -1,13 +1,17 @@
-import {setNewAvatar} from './api.js';
+import {setNewAvatar, editProfile} from './api.js';
 import {closePopup, cleanInput, startSend, endSend} from './utils';
 
 const profile = document.querySelector('.profile');
+const popupProfile = document.querySelector('.popup_profile');
 const username = profile.querySelector('.profile__username');
 const aboutUser = profile.querySelector('.profile__about-user');
+const submitButtonProfile = popupProfile.querySelector('.popup__save');
 const avatar = profile.querySelector('.profile__avatar');
 const popupAvatar = document.querySelector('.popup_update-avatar');
 const unpadAvatarInput = popupAvatar.querySelector('.popup__input');
 const submitButtonAvatar = popupAvatar.querySelector('.popup__save');
+const inputUsername = popupProfile.querySelector('.popup__input_type_username');
+const inputAboutUser = popupProfile.querySelector('.popup__input_type_about-user');
 
 function updateUserInfo(data){
   username.textContent = data.name;
@@ -33,4 +37,23 @@ function updateAvatar(evt){
   closePopup(popupAvatar);
 }
 
-export {updateUserInfo, updateAvatar}
+function handleProfileFormSubmit(evt){
+  evt.preventDefault();
+
+  startSend(submitButtonProfile);
+
+  editProfile(inputUsername.value, inputAboutUser.value)
+  .then(() => {
+    username.textContent = inputUsername.value;
+    aboutUser.textContent = inputAboutUser.value;
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally(() => {
+    endSend(popupProfile, submitButtonProfile);
+    closePopup(popupProfile);
+  })
+}
+
+export {updateUserInfo, updateAvatar, handleProfileFormSubmit}
