@@ -1,21 +1,7 @@
-function closePopup(popup){
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
-}
-function openPopup(popup){
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
-}
 function cleanInput(popup){
   const form = popup.querySelector('.popup__form')
   if(form){
     form.reset();
-  }
-}
-function closePopupEsc(evt){
-  if(evt.key === 'Escape'){
-    const openedPopup = document.querySelector('.popup_opened');
-    closePopup(openedPopup);
   }
 }
 
@@ -44,4 +30,4 @@ function enableButton(button) {
     button.removeAttribute('disable');
 }
 
-export {closePopup, openPopup, cleanInput, startSend, endSend, checkResponse, disableButton, enableButton}
+export {cleanInput, startSend, endSend, checkResponse, disableButton, enableButton}

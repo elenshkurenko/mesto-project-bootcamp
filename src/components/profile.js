@@ -1,5 +1,6 @@
 import {setNewAvatar, editProfile} from './api.js';
-import {closePopup, cleanInput, startSend, endSend} from './utils';
+import {closePopup, openPopup} from './modal.js';
+import {cleanInput, startSend, endSend, enableButton} from './utils';
 
 const profile = document.querySelector('.profile');
 const popupProfile = document.querySelector('.popup_profile');
@@ -56,4 +57,20 @@ function handleProfileFormSubmit(evt){
   })
 }
 
-export {updateUserInfo, updateAvatar, handleProfileFormSubmit}
+function openProfilePopup(){
+  fillProfileInputs({
+    name: username.textContent,
+    about: aboutUser.textContent
+  });
+  openPopup(popupProfile);
+
+}
+
+function fillProfileInputs(data){
+  inputUsername.value = data.name;
+  inputAboutUser.value = data.about;
+  enableButton(submitButtonProfile);
+}
+
+
+export {updateUserInfo, updateAvatar, handleProfileFormSubmit, openProfilePopup}

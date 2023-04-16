@@ -1,5 +1,6 @@
-import {closePopup, openPopup, cleanInput, startSend, endSend} from './utils.js';
-import {loadCards, addNewCard, removeCard, addLike, removeLike} from './api.js';
+import {cleanInput, startSend, endSend} from './utils.js';
+import {closePopup, openPopup} from './modal.js';
+import {addNewCard, removeCard, addLike, removeLike} from './api.js';
 import { userId } from '../index.js';
 
 const popupNewPlace = document.querySelector('.popup_new-place');

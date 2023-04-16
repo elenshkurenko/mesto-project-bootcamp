@@ -1,26 +1,18 @@
-import {openPopup, enableButton} from './utils.js';
-
-const profile = document.querySelector('.profile');
-const popupProfile = document.querySelector('.popup_profile');
-const inputUsername = popupProfile.querySelector('.popup__input_type_username');
-const inputAboutUser = popupProfile.querySelector('.popup__input_type_about-user');
-const submitButtonProfile = popupProfile.querySelector('.popup__save');
-const username = profile.querySelector('.profile__username');
-const aboutUser = profile.querySelector('.profile__about-user');
-
-function openProfilePopup(){
-  fillProfileInputs({
-    name: username.textContent,
-    about: aboutUser.textContent
-  });
-  openPopup(popupProfile);
-
+function openPopup(popup){
+  popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
 }
 
-function fillProfileInputs(data){
-  inputUsername.value = data.name;
-  inputAboutUser.value = data.about;
-  enableButton(submitButtonProfile);
+function closePopup(popup){
+  popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 }
 
-export {openProfilePopup, fillProfileInputs}
+function closePopupEsc(evt){
+  if(evt.key === 'Escape'){
+    const openedPopup = document.querySelector('.popup_opened');
+    closePopup(openedPopup);
+  }
+}
+
+export {openPopup, closePopup}

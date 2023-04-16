@@ -1,11 +1,10 @@
 import './pages/index.css';
 
 import {enableValidation} from './components/validate.js'
-import {openProfilePopup} from './components/modal.js'
-import {closePopup, openPopup} from './components/utils.js';
+import {closePopup, openPopup} from './components/modal.js';
 import {initCards, handleCardFormSubmit} from './components/card.js'
 import {getUserInfo, loadCards} from './components/api.js';
-import {updateUserInfo, updateAvatar, handleProfileFormSubmit} from './components/profile.js';
+import {updateUserInfo, updateAvatar, handleProfileFormSubmit, openProfilePopup} from './components/profile.js';
 
 let userId;
 
@@ -58,7 +57,6 @@ enableValidation({
 
 Promise.all([getUserInfo(), loadCards()])
   .then(([userData, cards]) => {
-      console.log(userData);
       userId = userData._id;
       updateUserInfo(userData);
 
