@@ -27,15 +27,16 @@ function updateAvatar(evt){
   
   setNewAvatar(unpadAvatarInput.value)
   .then(data => {
-    endSend(submitButtonAvatar);
+    cleanInput(popupAvatar);
+    closePopup(popupAvatar);
     updateUserInfo(data);
   })
   .catch((err) => {
     console.log(err);
-  }) 
+  })
+  .finally(() => endSend(submitButtonAvatar)) 
 
-  cleanInput(popupAvatar);
-  closePopup(popupAvatar);
+  
 }
 
 function handleProfileFormSubmit(evt){
@@ -47,13 +48,13 @@ function handleProfileFormSubmit(evt){
   .then(() => {
     username.textContent = inputUsername.value;
     aboutUser.textContent = inputAboutUser.value;
+    closePopup(popupProfile);
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
     endSend(submitButtonProfile);
-    closePopup(popupProfile);
   })
 }
 
