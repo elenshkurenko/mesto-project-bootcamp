@@ -1,4 +1,4 @@
-import {checkResponse} from './utils.js'
+import { checkResponse } from './utils.js'
 
 const config = {
   baseUrl: 'https://nomoreparties.co/v1/wbf-cohort-7',
@@ -12,17 +12,17 @@ function getUserInfo() {
   return fetch(`${config.baseUrl}/users/me`, {
     headers: config.headers
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function loadCards(){
+function loadCards() {
   return fetch(`${config.baseUrl}/cards`, {
     headers: config.headers
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function editProfile(username, aboutUser){
+function editProfile(username, aboutUser) {
   return fetch(`${config.baseUrl}/users/me`, {
     method: 'PATCH',
     headers: config.headers,
@@ -31,10 +31,10 @@ function editProfile(username, aboutUser){
       about: aboutUser
     })
   })
-  .then(checkResponse)
-  .then(data => {
-    return data
-  })
+    .then(checkResponse)
+    .then(data => {
+      return data
+    })
 }
 
 function addNewCard(cardName, cardLink) {
@@ -46,34 +46,34 @@ function addNewCard(cardName, cardLink) {
       link: cardLink
     })
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function removeCard(id){
+function removeCard(id) {
   return fetch(`${config.baseUrl}/cards/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function addLike(id){
+function addLike(id) {
   return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'PUT',
     headers: config.headers
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function removeLike(id){
+function removeLike(id) {
   return fetch(`${config.baseUrl}/cards/likes/${id}`, {
     method: 'DELETE',
     headers: config.headers
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-function setNewAvatar(avatarlink){
+function setNewAvatar(avatarlink) {
   return fetch(`${config.baseUrl}/users/me/avatar`, {
     method: 'PATCH',
     headers: config.headers,
@@ -81,7 +81,7 @@ function setNewAvatar(avatarlink){
       avatar: avatarlink
     })
   })
-  .then(checkResponse)
+    .then(checkResponse)
 }
 
-export {getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike, setNewAvatar}
+export { getUserInfo, loadCards, editProfile, addNewCard, removeCard, addLike, removeLike, setNewAvatar }

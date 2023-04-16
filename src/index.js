@@ -1,12 +1,20 @@
 import './pages/index.css';
 
-import {enableValidation} from './components/validate.js'
-import {closePopup, openPopup} from './components/modal.js';
-import {initCards, handleCardFormSubmit} from './components/card.js'
-import {getUserInfo, loadCards} from './components/api.js';
-import {updateUserInfo, updateAvatar, handleProfileFormSubmit, openProfilePopup} from './components/profile.js';
+import { enableValidation } from './components/validate.js'
+import { closePopup, openPopup } from './components/modal.js';
+import { initCards, handleCardFormSubmit } from './components/card.js'
+import { getUserInfo, loadCards } from './components/api.js';
+import { updateUserInfo, updateAvatar, handleProfileFormSubmit, openProfilePopup } from './components/profile.js';
 
 let userId;
+const settings = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input_type_error',
+  errorClass: 'popup__input-error_active'
+}
 
 const popups = document.querySelectorAll('.popup');
 const profile = document.querySelector('.profile');
@@ -34,7 +42,7 @@ closeButtons.forEach((item) => {
 
 popups.forEach((popup) => {
   popup.addEventListener('click', (evt) => {
-    if(!evt.target.closest('.popup__wrap')){
+    if (!evt.target.closest('.popup__wrap')) {
       closePopup(popup);
     }
   })
@@ -45,25 +53,18 @@ profileForm.addEventListener('submit', handleProfileFormSubmit);
 newPlaceForm.addEventListener('submit', handleCardFormSubmit);
 
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_inactive',
-  inputErrorClass: 'popup__input_type_error',
-  errorClass: 'popup__input-error_active'
-});
+enableValidation(settings);
 
 
 Promise.all([getUserInfo(), loadCards()])
   .then(([userData, cards]) => {
-      userId = userData._id;
-      updateUserInfo(userData);
+    userId = userData._id;
+    updateUserInfo(userData);
 
-      initCards(cards);
+    initCards(cards);
   })
   .catch(err => {
     console.log(err);
   });
 
-export {userId}
+export { userId, settings }
